@@ -1,0 +1,276 @@
+Context API Notes (ShopContext Example)
+Purpose
+
+Context API is used to share data between multiple components without prop drilling.
+
+Instead of:
+
+App
+ ↓
+Navbar
+ ↓
+Products
+ ↓
+ProductCard
+
+passing props through every component:
+
+<App user={user} />
+
+we can store the data in a Context and access it directly from any child component.
+
+Step 1: Create Context
+import { createContext } from "react";
+
+export const ShopContext = createContext();
+What happens?
+
+React creates a Context object.
+
+Think of it as:
+
+Empty Container / Global Locker
+
+Internally something like:
+
+{
+    value: undefined
+}
+
+is created.
+
+At this point:
+
+Context Exists
+No Data Stored Yet
+Step 2: Create Provider Component
+const ShopContextProvider = (props) => {
+
+This component's job is:
+
+Store Data
+Provide Data
+Wrap Application
+
+Think:
+
+WiFi Router
+
+The router provides internet.
+
+The Provider provides data.
+
+Step 3: Create Value Object
+const value = {
+
+}
+
+This object contains all shared data.
+
+Example:
+
+const value = {
+    products,
+    currency,
+    addToCart,
+    removeFromCart
+}
+
+Anything inside this object becomes accessible to child components.
+
+Step 4: Provider
+<ShopContext.Provider value={value}>
+What happens?
+
+React stores:
+
+value
+
+inside:
+
+ShopContext
+
+Think:
+
+Put Data Inside Locker
+Step 5: props.children
+{props.children}
+What is props.children?
+
+Suppose App.jsx contains:
+
+<ShopContextProvider>
+    <Navbar />
+    <Home />
+</ShopContextProvider>
+
+Everything inside:
+
+<ShopContextProvider>
+
+becomes:
+
+props.children
+
+Meaning:
+
+<Navbar />
+<Home />
+Visual
+ShopContextProvider
+│
+├── Navbar
+├── Home
+├── Collection
+└── Product
+
+All these components can access ShopContext.
+
+Complete Flow
+createContext()
+        ↓
+Creates Context Object
+
+Provider
+        ↓
+Stores Shared Data
+
+value
+        ↓
+Contains Shared Data
+
+props.children
+        ↓
+Receives Access To Data
+
+useContext()
+        ↓
+Reads Shared Data
+How Components Use It
+
+Example:
+
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
+
+const Navbar = () => {
+
+    const data = useContext(ShopContext);
+
+    console.log(data);
+
+}
+
+or
+
+const { products } =
+    useContext(ShopContext);
+
+React finds:
+
+Nearest ShopContext.Provider
+
+and returns its value.
+
+Production Version
+
+Usually:
+
+const value = {
+    products,
+    currency,
+    deliveryFee,
+    addToCart,
+    removeFromCart,
+    search,
+    setSearch
+}
+
+All pages can access:
+
+Products
+Cart
+Search
+Currency
+Filters
+
+without prop drilling.
+
+Real E-Commerce Example
+
+Context stores:
+
+const value = {
+    products,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    getCartAmount
+}
+
+Then:
+
+Navbar
+
+Reads:
+
+cartItems
+
+to show cart count.
+
+Product Page
+
+Uses:
+
+addToCart()
+Cart Page
+
+Uses:
+
+getCartAmount()
+
+All from one Context.
+
+Important Interview Point
+
+Context API is NOT a database.
+
+Context API is NOT backend storage.
+
+Context API is NOT localStorage.
+
+It only stores data:
+
+Inside React Component Tree
+While Application Is Running
+
+Refreshing the page resets Context state unless persisted elsewhere.
+
+Quick Revision
+createContext()
+    ↓
+Create Context Object
+
+Provider
+    ↓
+Provides Shared Data
+
+value
+    ↓
+Data To Share
+
+props.children
+    ↓
+Components Receiving Access
+
+useContext()
+    ↓
+Read Shared Data
+
+Purpose:
+Avoid Prop Drilling
+Memory Trick
+createContext()  → Create Locker
+Provider         → Put Data In Locker
+children         → Components Under Locker
+useContext()     → Take Data From Locker

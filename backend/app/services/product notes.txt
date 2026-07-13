@@ -1,0 +1,44 @@
+-------------Product Upload/Create flow -----------
+
+1. Validate images
+2. Validate primary index
+
+3. Upload images to ImageKit
+      ↓
+   Collect URLs
+
+4. Create Product
+      ↓
+   db.add(product)
+   await db.flush()
+
+5. Now product.id exists
+
+6. Create ProductImage rows
+      ↓
+   product_id=product.id
+
+7. commit
+
+
+----------------Flow-------------------
+
+Validate
+    ↓
+Upload Images
+    ↓
+Collect URLs
+    ↓
+Create Product
+    ↓
+flush()
+    ↓
+product.id available
+    ↓
+Create ProductImages
+    ↓
+commit()
+    ↓
+refresh(product)
+    ↓
+return product

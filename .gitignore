@@ -1,0 +1,74 @@
+# =========================
+# Python
+# =========================
+backend/.venv/
+backend/__pycache__/
+backend/**/*.py[cod]
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+
+# Environment Variables
+backend/.env
+
+# Alembic cache
+backend/alembic/versions/__pycache__/
+
+# =========================
+# Node / React / Vite
+# =========================
+frontend/node_modules/
+frontend/dist/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# Backup archives
+*.zip
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual Environments
+.venv/
+venv/
+
+# Environment Variables
+.env
+
+# Build files
+build/
+dist/
+wheels/
+*.egg-info
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Database files
+*.db
+
+# Personal notes
+backend_notes.txt
+notes.txt
+security concepts.txt
+db notes.txt
+Schemas.txt
+relationship diagram.txt

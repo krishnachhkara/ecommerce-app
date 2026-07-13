@@ -1,0 +1,62 @@
+Receive Request
+        │
+        ▼
+Validate Product Exists
+        │
+        ▼
+Find User Cart
+        │
+        ▼
+Create Cart If Missing
+        │
+        ▼
+Check Existing CartItem
+        │
+        ├──────────────┐
+        │              │
+       Yes             No
+        │              │
+Increase Qty      Create CartItem
+        │              │
+        └──────┬───────┘
+               ▼
+            Commit
+               ▼
+        Return Updated Cart
+
+
+cart response helper function flow
+Receive Cart
+      │
+      ▼
+Load all CartItems
+      │
+      ▼
+For every CartItem
+      │
+      ├── Product
+      ├── Primary Image
+      ├── Price
+      ├── Quantity
+      └── Calculate Subtotal
+      │
+      ▼
+Append CartItemResponse
+      │
+      ▼
+Add subtotal to total
+      │
+      ▼
+Return CartResponse
+
+relationships between tables
+Cart
+   │
+   ▼
+CartItems        (One Cart → Many CartItems)
+   │
+   ▼
+Product          (Many CartItems → One Product)
+   │
+   ▼
+ProductImages    (One Product → Many Images)
