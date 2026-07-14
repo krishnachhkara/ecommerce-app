@@ -1,14 +1,12 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.schemas.auth import UserRegister,UserLogin,TokenResponse
 from app.models.user import User
-<<<<<<< HEAD
-from sqlalchemy import select
-from app.core.security import hash_password,verify_password,create_access_token
-=======
+
 from app.models.refresh_token import RefreshToken
 from sqlalchemy import select
 from app.core.security import (hash_password,verify_password,create_access_token,create_refresh_token
 ,hash_refresh_token,decode_refresh_token,verify_refresh_token_hash,InvalidTokenError)
+
 
 
 class UserAlreadyExistsError(Exception):
@@ -40,11 +38,7 @@ async def register_user(user_data: UserRegister,db: AsyncSession) -> User:
     return user
 
 
-<<<<<<< HEAD
-async def login_user( user_data: UserLogin, db: AsyncSession)->TokenResponse:
-=======
 async def login_user( user_data: UserLogin, db: AsyncSession)->tuple[str, str]:
->>>>>>> 4e815fb (feat: implement product and cart modules)
    
     stmt = select(User).where(User.email == user_data.email)
     result = await db.execute(stmt)
@@ -58,19 +52,6 @@ async def login_user( user_data: UserLogin, db: AsyncSession)->tuple[str, str]:
     if not verification:
         raise InvalidCredentialsError()
     
-<<<<<<< HEAD
-    token = create_access_token(user.id)
-
-    return TokenResponse(
-        access_token = token,
-        token_type="bearer")
-    
-    
-
-     
-
-
-=======
     access_token = create_access_token(user.id)
     refresh_token,expires_at = create_refresh_token(user.id)
     hashed_refresh_token = hash_refresh_token(refresh_token)
@@ -127,4 +108,3 @@ async def refresh_access_token(
     access_token=token,
     token_type="bearer",
     )
->>>>>>> 4e815fb (feat: implement product and cart modules)
