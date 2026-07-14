@@ -10,7 +10,6 @@ from sqlalchemy import select
 from app.core.security import (hash_password,verify_password,create_access_token,create_refresh_token
 ,hash_refresh_token,decode_refresh_token,verify_refresh_token_hash,InvalidTokenError)
 
->>>>>>> 4e815fb (feat: implement product and cart modules)
 
 class UserAlreadyExistsError(Exception):
     pass
