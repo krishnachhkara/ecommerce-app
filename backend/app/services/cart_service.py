@@ -58,6 +58,7 @@ async def _build_cart_response(cart:Cart,db:AsyncSession)->CartResponse:
             break
             
         items.append( CartItemResponse(
+            id=item.id,
             product_id= item.product_id,
             name=item.product.name,
             price=item.product.price,
@@ -217,9 +218,6 @@ async def clear_cart(user_id:int,db:AsyncSession)->None:
 
     stmt = select(CartItem).where(CartItem.cart_id == cart.id)
     items = (await db.scalars(stmt)).all()
-
-    if not items:
-        raise ItemNotFoundError()
     
     for item in items:
         await db.delete(item)

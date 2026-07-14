@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api.v1.auth import router as auth_router
 from app.api.v1.product import router as product_router
+from app.api.v1.cart import router as cart_router
 # from app.api.v1.test import router as test_router
 
 app = FastAPI()
@@ -17,4 +18,9 @@ app.include_router(
     tags=["Products"],
 )
 
+app.include_router(
+    cart_router,
+    prefix="/api/v1/cart",
+    tags=["Carts"],
+)
 # app.include_router(test_router)

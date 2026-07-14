@@ -1,0 +1,3 @@
+ALTER USER ecommerce_user WITH PASSWORD 'Ecomhtgu23guu4u';
+
+ALTER USER postgres WITH PASSWORD 'MySecure@2378Mkc';

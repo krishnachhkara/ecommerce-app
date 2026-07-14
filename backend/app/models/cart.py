@@ -48,6 +48,7 @@ class CartItem(Base):
     cart:Mapped["Cart"] = relationship(back_populates="items")
     product:Mapped["Product"] = relationship(back_populates="cart_items")
     
+    
         
     __table_args__ = (
     UniqueConstraint(
