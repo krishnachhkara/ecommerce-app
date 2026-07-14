@@ -10,10 +10,8 @@ from sqlalchemy import (
     String,
     func,
 )
-<<<<<<< HEAD
-=======
+
 from sqlalchemy.dialects.postgresql import ARRAY
->>>>>>> 4e815fb (feat: implement product and cart modules)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
@@ -23,10 +21,8 @@ if TYPE_CHECKING:
 
     from app.models.cart import CartItem
     from app.models.orders import Order,OrderItem
-<<<<<<< HEAD
-=======
     from app.models.cart import Cart,CartItem
->>>>>>> 4e815fb (feat: implement product and cart modules)
+
 
 
 # here the mapped part is for python and mappedcol is for database(type storing in python and database)
@@ -53,14 +49,12 @@ class Product(Base):
         nullable=False,
     )
 
-<<<<<<< HEAD
-=======
     sizes: Mapped[list[str]] = mapped_column(
     ARRAY(String),
     nullable=False
     )
 
->>>>>>> 4e815fb (feat: implement product and cart modules)
+
     category: Mapped[str] = mapped_column(
         String(50),
         nullable=False,
@@ -175,15 +169,14 @@ class ProductImage(Base):
         nullable=False,
     )
 
-<<<<<<< HEAD
-=======
+
     is_primary: Mapped[bool] = mapped_column(
     Boolean,
     default=False,
     nullable=False
 )
 
->>>>>>> 4e815fb (feat: implement product and cart modules)
+
     # Many Images -> One Product
     product: Mapped["Product"] = relationship(back_populates="images")
 

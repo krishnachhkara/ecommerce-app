@@ -5,12 +5,6 @@ from datetime import datetime,timedelta,timezone
 from fastapi import HTTPException,status,Depends
 from app.db.database import get_db
 from fastapi.security import OAuth2PasswordBearer
-<<<<<<< HEAD
-from app.models.user import User
-from sqlalchemy.ext.asyncio import AsyncSession
-
-password_hasher = PasswordHash.recommended()
-=======
 from app.models.user import User,UserRole
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.enums import TokenType
@@ -20,7 +14,7 @@ from app.core.enums import TokenType
 #----------------Password Management------------------
 password_hasher = PasswordHash.recommended()
 refresh_token_hasher = PasswordHash.recommended()
->>>>>>> 4e815fb (feat: implement product and cart modules)
+
 
 def hash_password(password:str)->str:
     return password_hasher.hash(password)
@@ -28,8 +22,7 @@ def hash_password(password:str)->str:
 def verify_password(plain_password:str,hashed_password:str)->bool:
     return password_hasher.verify(plain_password,hashed_password)
 
-<<<<<<< HEAD
-=======
+
 #---------------------Jwt Creation-------------------
 
 #create access token helper 
@@ -164,7 +157,7 @@ def hash_refresh_token(token:str)->str:
 def verify_refresh_token_hash(plain_token:str,hashed_token:str)->bool:
     return refresh_token_hasher.verify(plain_token,hashed_token)
 
->>>>>>> 4e815fb (feat: implement product and cart modules)
+
 
 # create_access_token()
 #
@@ -186,7 +179,7 @@ def verify_refresh_token_hash(plain_token:str,hashed_token:str)->bool:
 # Signed JWT token string
 #
 # The caller only provides the user identifier.
-<<<<<<< HEAD
+
 # JWT configuration is handled internally using settings.
 
 def create_access_token(user_id:int)->str:
@@ -246,6 +239,5 @@ async def get_current_user(token: str = Depends(oauth_scheme),db:AsyncSession = 
 
     return user    
 
-=======
+
 # JWT configuration is handled internally using settings.
->>>>>>> 4e815fb (feat: implement product and cart modules)

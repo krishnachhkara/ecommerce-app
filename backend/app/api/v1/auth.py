@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-from fastapi import APIRouter, Depends,HTTPException,status
-=======
-from fastapi import APIRouter, Depends,HTTPException,status,Response,Cookie
->>>>>>> 4e815fb (feat: implement product and cart modules)
+from fastapi import APIRouter, Depends, HTTPException, status, Response, Cookie
+
 from app.db.database import get_db
 from app.schemas.auth import UserLogin,UserRegister,TokenResponse,UserResponse
 from app.services.auth_service import register_user,login_user,UserAlreadyExistsError,InvalidCredentialsError
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.security import get_current_user
 from app.models.user import User
-<<<<<<< HEAD
-
-=======
-from app.services.auth_service import refresh_access_token,InvalidTokenError,logout_user
+from app.services.auth_service import refresh_access_token, InvalidTokenError, logout_user
 from app.core.exceptions import credentials_exception
->>>>>>> 4e815fb (feat: implement product and cart modules)
 
 router = APIRouter()
 
@@ -36,39 +29,34 @@ async def register(payload:UserRegister,db:AsyncSession = Depends(get_db)):
     )
 
 
-@router.post('/login',response_model=TokenResponse,status_code=status.HTTP_200_OK)
-<<<<<<< HEAD
-async def login(payload:UserLogin,db:AsyncSession = Depends(get_db)):
-    try:
-        return await login_user(payload,db)
-=======
-async def login(payload:UserLogin,response:Response,db:AsyncSession = Depends(get_db)):
+@router.post('/login', response_model=TokenResponse, status_code=status.HTTP_200_OK)
+async def login(
+    payload: UserLogin,
+    response: Response,
+    db: AsyncSession = Depends(get_db)
+):
     try:
         access_token, refresh_token = await login_user(payload, db)
+
         response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=False,          # we'll improve this later
-        samesite="lax",
-        max_age=30 * 24 * 60 * 60
+            key="refresh_token",
+            value=refresh_token,
+            httponly=True,
+            secure=False,
+            samesite="lax",
+            max_age=30 * 24 * 60 * 60,
         )
->>>>>>> 4e815fb (feat: implement product and cart modules)
-        
+
     except InvalidCredentialsError:
         raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid email or password"
-<<<<<<< HEAD
-    )
-=======
-    )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
 
     return TokenResponse(
-    access_token=access_token,
-    token_type="bearer"
+        access_token=access_token,
+        token_type="bearer"
     )
-
 @router.post('/refresh',response_model=TokenResponse,status_code=status.HTTP_200_OK)
 async def refresh(
     refresh_token:str|None = Cookie(default=None),
@@ -108,4 +96,4 @@ async def logout(
     return {
     "message": "Logged out successfully"
     }    
->>>>>>> 4e815fb (feat: implement product and cart modules)
+

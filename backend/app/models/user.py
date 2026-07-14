@@ -7,14 +7,9 @@ from sqlalchemy import Enum as SQLEnum
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
 
-<<<<<<< HEAD
-    from app.models.cart import CartItem
-    from app.models.orders import Order,OrderItem
-=======
     from app.models.cart import CartItem,Cart
     from app.models.orders import Order,OrderItem
     from app.models.refresh_token import RefreshToken
->>>>>>> 4e815fb (feat: implement product and cart modules)
 
 
 
@@ -37,11 +32,9 @@ class User(Base):
     # realtions
     cart_items:Mapped[list["CartItem"]] = relationship(back_populates="user",cascade='all, delete-orphan')
     orders:Mapped[list["Order"]] = relationship(back_populates="user",cascade="all,delete-orphan")
-<<<<<<< HEAD
-=======
+
     refresh_tokens:Mapped[list["RefreshToken"]] = relationship(back_populates="user",cascade="all,delete-orphan")
     cart:Mapped["Cart"] = relationship(back_populates="user",uselist=False)
->>>>>>> 4e815fb (feat: implement product and cart modules)
 
 # Ek User ke multiple Orders ho sakte hain.
 # relationship ki wajah se user.orders se us user ke saare orders access kar sakte hain.
